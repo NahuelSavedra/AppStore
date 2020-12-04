@@ -24,13 +24,14 @@ class AppFactory extends Factory
     public function definition()
     {
         return [
-            'version'=>$this->faker->numerify('##.#.#'),
-            'name'=>$this->faker->title,
             'user_id'=> User::factory(),
-            'category'=>$this->faker->randomElement(["juegos","aplicaciones"]),
-            'price'=>$this->faker->randomFloat($decimals = 2, $min = 0.00 , $max = 1000.00),
-            'url_image'=>$this->faker->url,
-            'description'=>$this->faker->paragraph()
+            'version'=>$this->faker->numerify('##.#.#'),
+            'name'=>$this->faker->sentence(5),
+            'category'=>$this->faker->randomElement(["Juegos","Negocios","Educación","Entretenimiento","Estilo de vida","Redes sociales"]),
+            'price'=>$this->faker->randomFloat($decimals = 2, $min = 0.00 , $max = 500.00),
+            'url_image'=>$this->faker->randomElement(['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg']),
+            'description'=>$this->faker->text($maxNbChars = 400)
+
         ];
     }
 }

@@ -15,16 +15,16 @@ class CreateAppsTable extends Migration
     {
         Schema::create('apps', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->nullable();
-            $table->string('version');
+            $table->unsignedBigInteger('user_id');
+            $table->string('version')->nullable();
             $table->string('name');
             $table->string('category');
             $table->float('price');
-            $table->string('url_image');
-            $table->text('description');
+            $table->string('url_image')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
-         //   $table->foreign('user_id')->references('id')->on('users');
+           $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -9,7 +9,7 @@ class App extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','category'.'version','description','url_image','price'];
+    protected $fillable = ['user_id', 'name','category','version','description','url_image','price'];
 
     public function user()
     {
