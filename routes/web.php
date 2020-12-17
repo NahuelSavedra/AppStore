@@ -21,17 +21,17 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::get('app', [AppController::class, 'index'])->name('app.index');
 
-Route::get('app/create', [AppController::class, 'create'])->name('app.create');
-
 Route::post('app',[AppController::class, 'store'])->name('app.store');
+
+Route::get('app/create', [AppController::class, 'create'])->name('app.create')->middleware(['auth','developer']);
 
 Route::get('app/{app}', [AppController::class, 'show'])->name('app.show');
 
-Route::get('app/{app}/edit', [AppController::class, 'edit'])->name('app.edit');
+Route::get('app/{app}/edit', [AppController::class, 'edit'])->name('app.edit')->middleware(['auth','developer']);
 
-Route::put('app/{app}',[AppController::class, 'update'])->name('app.update');
+Route::put('app/{app}',[AppController::class, 'update'])->name('app.update')->middleware(['auth','developer']);
 
-Route::delete('app/{app}',[AppController::class, 'destroy'])->name('app.destroy');
+Route::delete('app/{app}',[AppController::class, 'destroy'])->name('app.destroy')->middleware(['auth','developer']);
 
 Auth::routes();
 

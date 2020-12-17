@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container  mt-3">
-    <h1>En esta pagina podras editar tu aplicacion</h1>
+    <h1>Completa los campos que deseas actualizar</h1>
     <form action="{{route('app.update', $app)}}" method="POST">
             @csrf
             @method('put')
