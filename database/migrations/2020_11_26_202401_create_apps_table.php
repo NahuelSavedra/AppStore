@@ -15,10 +15,10 @@ class CreateAppsTable extends Migration
     {
         Schema::create('apps', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('version')->nullable();
-            $table->string('name');
-            $table->string('category');
+            $table->string('name')->nullable();
+            $table->string('category')->nullable();
             $table->float('price');
             $table->string('url_image')->nullable();
             $table->text('description')->nullable();

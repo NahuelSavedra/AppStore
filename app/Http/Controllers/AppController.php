@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 use App\Models\App;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AppController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+            
     }
     
     public function index(){
@@ -24,17 +27,23 @@ class AppController extends Controller
 
     public function store(Request $request){
 
-        $apps = new App();
+        $user = Auth::user();
 
-        $apps->name =  $request->name;
-        $apps->category =  $request->category;
-        $apps->price =  $request->price;
-        $apps->url_image =  $request->url_image;
-        $apps->user_id =  $request->user_id;
+        $path = $request->file('url_image')->store('public');
 
-        $apps->save();
+        $app = App::create([
+            'name' => $request->input('name'),
+            'category' => $request->input('category'),
+            'price' => $request->input('price'),
+            'url_image' => $request->input('url_image'),
+            'user_id' => $user->id,
+        ]);
 
-        return redirect()->route('app.show', $apps);
+        $app->url_image=basename($path);
+
+        $app->save();
+
+        return redirect()->route('app.show', $app);
     }
 
     public function show(App $app){
@@ -46,13 +55,15 @@ class AppController extends Controller
     }
     public function update(Request $request,App $app){
 
+        $path = $request->file('url_image')->store('public');
+
         $app->version = $request->version;
         $app->description = $request->description;
         $app->price = $request->price;
         $app->url_image = $request->url_image;
+        $app->url_image=basename($path);
 
         $app->save();
-
 
         return view('app.show', compact('app'));
     }
@@ -63,5 +74,6 @@ class AppController extends Controller
         return redirect()->route('app.index');
 
     }
+
 
 }
